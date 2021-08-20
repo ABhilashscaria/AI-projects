@@ -31,9 +31,9 @@ model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=
 model.fit(X_train, Y_train, epochs= 10 )
 print(model.summary())
 
-predictions = model.predict(X_cv)
+predictions = model.predict(X_test)
 pred = np.zeros((1000,1))
 for i in range(0,1000):
     pred[i] = np.argmax(predictions[i])
 
-print(accuracy_score(Y_cv, pred))
+print(accuracy_score(Y_test, pred))
