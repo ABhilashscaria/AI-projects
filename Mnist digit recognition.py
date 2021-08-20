@@ -7,20 +7,21 @@ df = pd.read_csv('D:/python/Digit mnist/train.csv')
 df = np.array(df)
 m, n = df.shape
 data = df[0:1000].T
-Y_cv = data[0]
-X_cv = data[1:n].T
-X_cv = tf.keras.utils.normalize(X_cv)
-
-data1 = df[1000:m].T
-Y_train = data1[0]
-X_train = data1[1:n].T
-X_train = tf.keras.utils.normalize(X_train)
+X = df[:, 1:m]
+X = tf.keras.utils.normalize(X)
+Y = df[:, 0]
+Y = Y.reshape(42000, 1)
+X_train = X[1000:m]
+Y_train = Y[1000:m]
+print(X_train.shape)
+print(Y_train.shape)
+X_test = X[0:1000]
+Y_test = Y[0:1000]
 
 
 model = tf.keras.models.Sequential()
 
-model.add(tf.keras.layers.Flatten())
-model.add(tf.keras.layers.Dense(784, activation='relu'))
+model.add(tf.keras.Input(shape = (784,)))
 model.add(tf.keras.layers.Dense(600, activation='relu')) #hidden layer
 model.add(tf.keras.layers.Dense(64, activation='relu'))  #hidden layer
 model.add(tf.keras.layers.Dense(10, activation='softmax'))
